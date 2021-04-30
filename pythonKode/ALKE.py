@@ -13,8 +13,8 @@ class Drone:
 
     def __init__(self, drone):
         self.drone = drone
-        self.homeLat = drone.location.lat
-        self.homeLon = drone.location.lon
+        self.homeLat = drone.location.global_relative_frame.lat
+        self.homeLon = drone.location.global_relative_frame.lon
 
     def bytt_modus(self, modus):
         print(f"Change vehicle modus from\n{self.drone.modus}")
