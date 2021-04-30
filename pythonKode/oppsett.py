@@ -78,8 +78,7 @@ def hent_navaerende_plan(drone):
 def get_location_metres(original_location, dNorth, dEast):
     """
     Returns a LocationGlobal object containing the latitude/longitude `dNorth` and `dEast` metres from the 
-    specified `original_location`. The returned Location has the same `alt` value
-    as `original_location`.
+    specified `original_location`. The returned Location has the same `alt` value as `original_location`.
     The function is useful when you want to move the vehicle around specifying locations relative to 
     the current vehicle position.
     The algorithm is relatively accurate over small distances (10m within 1km) except close to the poles.
@@ -97,8 +96,8 @@ def get_location_metres(original_location, dNorth, dEast):
     return LocationGlobal(newlat, newlon,original_location.alt)
 
 def bytt_modus(kjoretoy, modus):
-    while kjoretoy.modus != Vehicle(modus):
-        kjoretoy.modus = VehicleMode(modus)
+    while kjoretoy.mode != Vehicle(modus):
+        kjoretoy.mode = VehicleMode(modus)
         time.sleep(0.5)
     return True
 
