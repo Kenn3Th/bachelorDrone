@@ -70,6 +70,7 @@ class Drone:
             if hoyde <= 0.5:
                 break
             counter += 1
+            time.sleep(1)
             
     def lastinn_plan(self):
         """
