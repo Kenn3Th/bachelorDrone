@@ -24,8 +24,9 @@ drone = ALKE.Drone(drone)
 print("Første test!")
 drone.armer_og_lett(5)
 
-drone.fly_til(5,3)
-drone.flytil(1,2)
+drone.fart_rBakke(6)
+drone.fly_til(2,1)
+drone.flytil(1,3)
 drone.returner_hjem()
 
 print("Slår av dronen")
