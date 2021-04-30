@@ -151,9 +151,9 @@ class Drone:
         while drone.mode.name=="GUIDED": #Stop action if we are no longer in guided mode.
             #print "DEBUG: mode: %s" % vehicle.mode.name
             remainingDistance = self.get_distance_metres(drone.location.global_relative_frame, targetLocation)
-            print("Distance to target: ", remainingDistance)
+            print("Avstand til mål: ", remainingDistance)
             if remainingDistance<=targetDistance*0.05: #Just below target, in case of undershoot.
-                print("Reached target")
+                print("Mål nådd")
                 break;
             time.sleep(2)
 
