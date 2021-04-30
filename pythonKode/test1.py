@@ -3,11 +3,6 @@
 """ 
 Dette programmet tester om klassen ALKE.py fungerer.
 """
-from __future__ import print_function
-
-from dronekit import connect, VehicleMode, Command, LocationGlobal, LocationGlobalRelative 
-from pymavlink import mavutil
-import time
 import ALKE
 
 #----- Koble til drone -----
