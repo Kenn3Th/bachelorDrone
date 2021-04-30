@@ -25,6 +25,7 @@ print("Første test!")
 drone.armer_og_lett(5)
 
 drone.fart_rBakke(6)
+time.sleep(1)
 drone.fly_til(2,1)
 drone.flytil(1,3)
 drone.returner_hjem()
