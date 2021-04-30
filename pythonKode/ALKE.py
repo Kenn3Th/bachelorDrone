@@ -126,7 +126,7 @@ class Drone:
         dlong = aLocation2.lon - aLocation1.lon
         return math.sqrt((dlat*dlat) + (dlong*dlong)) * 1.113195e5
 
-    def fly_til(self, dNorth, dEast, gotoFunction=self.drone.simple_goto):
+    def fly_til(self, dNorth, dEast):
         """
         Moves the vehicle to a position dNorth metres North and dEast metres East of the current position.
 
@@ -140,7 +140,7 @@ class Drone:
         currentLocation = drone.location.global_relative_frame
         targetLocation = self.hent_lokasjon_meter(currentLocation, dNorth, dEast)
         targetDistance = self.hent_lokasjon_meter(currentLocation, targetLocation)
-        gotoFunction(targetLocation)
+        drone.simpler_goto(targetLocation)
         
         #print "DEBUG: targetLocation: %s" % targetLocation
         #print "DEBUG: targetLocation: %s" % targetDistance
