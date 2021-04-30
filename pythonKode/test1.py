@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """ 
-Dette programmet tester om motorene kan armeres lette 2m, hovre i 5sek deretter lande.
+Dette programmet tester om klassen ALKE.py fungerer.
 """
 from __future__ import print_function
 
@@ -30,6 +30,7 @@ drone.fly_til(90,50)
 drone.set_roi()
 drone.fart_rBakke(10)
 drone.fly_til(-40,60)
+drone.set_roi()
 drone.fart_rLuft(15)
 drone.returner_hjem()
 

@@ -67,7 +67,7 @@ class Drone:
             hoyde = self.drone.location.global_relative_frame.alt
             if counter%3 == 0:
                 print(f"Høyde: {hoyde}")
-            if hoyde <= 5:
+            if hoyde <= 0.5:
                 break
             counter += 1
             
@@ -160,6 +160,7 @@ class Drone:
     def returner_hjem(self):
         print("Returnerer til start")
         self.drone.simple_goto(self.homePkt)
+        self.set_roi()
         self.fart_rBakke(5)
         alt = self.drone.location.global_relative_frame.alt
         while alt >= 2:
