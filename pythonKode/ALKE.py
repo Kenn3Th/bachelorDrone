@@ -16,6 +16,7 @@ class Drone:
         self.drone = drone
         self.homeLat = drone.location.global_relative_frame.lat
         self.homeLon = drone.location.global_relative_frame.lon
+        self.homePkt = LocationGlobalRelative(self.homeLat, self.homeLon, 2)
 
     def bytt_modus(self, modus):
         print(f"Change vehicle modus from\n{self.drone.mode}")
@@ -157,10 +158,10 @@ class Drone:
             time.sleep(2)
 
     def returner_hjem(self):
-        self.drone.simple_goto(self.homeLat, self.homeLon, 2)
+        self.drone.simple_goto(self.homePkt)
         self.fart_rBakke(5)
         alt = self.drone.location.global_relative_frame.alt
-        while alt > 2:
+        while alt >= 2:
             time.sleep(1)
         self.landing()
 
@@ -172,3 +173,25 @@ class Drone:
     
     def fart_rLuft(self, fart):
         self.drone.airspeed = fart
+
+    def set_roi(self, location):
+        """
+        Send MAV_CMD_DO_SET_ROI message to point camera gimbal at a 
+        specified region of interest (LocationGlobal).
+        The vehicle may also turn to face the ROI.
+
+        For more information see: 
+        http://copter.ardupilot.com/common-mavlink-mission-command-messages-mav_cmd/#mav_cmd_do_set_roi
+        """
+        # create the MAV_CMD_DO_SET_ROI command
+        msg = self.drone.message_factory.command_long_encode(
+            0, 0,    # target system, target component
+            mavutil.mavlink.MAV_CMD_DO_SET_ROI, #command
+            0, #confirmation
+            0, 0, 0, 0, #params 1-4
+            location.lat,
+            location.lon,
+            location.alt
+            )
+        # send command to vehicle
+        self.drone.send_mavlink(msg)
