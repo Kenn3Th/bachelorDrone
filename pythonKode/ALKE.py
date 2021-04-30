@@ -141,7 +141,7 @@ class Drone:
         drone = self.drone
         currentLocation = drone.location.global_relative_frame
         targetLocation = self.hent_lokasjon_meter(currentLocation, dNorth, dEast)
-        targetDistance = self.hent_lokasjon_meter(currentLocation, targetLocation)
+        targetDistance = self.get_distance_metres(currentLocation, targetLocation)
         drone.simpler_goto(targetLocation)
         
         #print "DEBUG: targetLocation: %s" % targetLocation
