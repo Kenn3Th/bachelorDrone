@@ -84,7 +84,7 @@ class Drone:
         plan.download()
         plan.wait_ready()
 
-    def hent_navaerende_plan():
+    def hent_navaerende_plan(self):
         self.lastinn_plan()
         planliste = []
         n_veipunkt = 0
@@ -93,7 +93,7 @@ class Drone:
             n_veipunkt += 1
         return n_veipunkt, planliste
 
-    def hent_lokasjon_meter(original_location, dNorth, dEast):
+    def hent_lokasjon_meter(self, original_location, dNorth, dEast):
         """
         Kildekode funnet på: https://dronekit-python.readthedocs.io/en/latest/examples/guided-set-speed-yaw-demo.html
         """
@@ -114,7 +114,7 @@ class Drone:
             
         return targetlocation;
 
-    def get_distance_metres(aLocation1, aLocation2):
+    def get_distance_metres(self, aLocation1, aLocation2):
         """
         Returns the ground distance in metres between two LocationGlobal objects.
 
@@ -126,7 +126,7 @@ class Drone:
         dlong = aLocation2.lon - aLocation1.lon
         return math.sqrt((dlat*dlat) + (dlong*dlong)) * 1.113195e5
 
-    def fly_til(dNorth, dEast, gotoFunction=self.drone.simple_goto):
+    def fly_til(self, dNorth, dEast, gotoFunction=self.drone.simple_goto):
         """
         Moves the vehicle to a position dNorth metres North and dEast metres East of the current position.
 
