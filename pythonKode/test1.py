@@ -26,9 +26,9 @@ drone.armer_og_lett(5)
 
 fart = 6
 drone.fart_rBakke(fart)
-drone.fly_til(10,5)
+drone.fly_til(100,50)
 drone.fart_rBakke(10)
-drone.flytil(5,-10)
+drone.fly_til(50,-100)
 drone.fart_rLuft(15)
 drone.returner_hjem()
 
