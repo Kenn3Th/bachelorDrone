@@ -22,10 +22,10 @@ drone.armer_og_lett(10)
 
 fart = 10
 drone.fart_rBakke(fart)
-drone.fly_til(20,20)
+drone.fly_til(15,15)
 drone.set_roi()
 drone.fart_rLuft(fart)
-drone.fly_til(-20,20)
+drone.fly_til(-15,15)
 drone.set_roi()
 drone.fart_rLuft(15)
 drone.returner_hjem()
