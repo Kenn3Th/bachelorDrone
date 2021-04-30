@@ -152,7 +152,7 @@ class Drone:
             #print "DEBUG: mode: %s" % vehicle.mode.name
             remainingDistance = self.get_distance_metres(drone.location.global_relative_frame, targetLocation)
             print("Distance to target: ", remainingDistance)
-            if remainingDistance<=targetDistance*0.1: #Just below target, in case of undershoot.
+            if remainingDistance<=targetDistance*0.05: #Just below target, in case of undershoot.
                 print("Reached target")
                 break;
             time.sleep(2)

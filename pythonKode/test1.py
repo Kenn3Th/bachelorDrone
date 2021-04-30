@@ -29,7 +29,7 @@ drone.fart_rBakke(fart)
 drone.fly_til(90,50)
 drone.set_roi()
 drone.fart_rBakke(10)
-drone.fly_til(-50,-60)
+drone.fly_til(50,-60)
 drone.fart_rLuft(15)
 drone.returner_hjem()
 
