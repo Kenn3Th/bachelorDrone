@@ -36,6 +36,7 @@ class Drone:
         print("Armerer motorene")
         #Bør armere i "GUIDED" modus
         self.bytt_modus("GUIDED")
+        drone.armed= True
         while not drone.armed:
             print("Venter på armering...")
             time.sleep(1)
