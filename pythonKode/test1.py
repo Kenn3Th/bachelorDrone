@@ -20,12 +20,12 @@ drone = ALKE.Drone(drone)
 print("Starter test!")
 drone.armer_og_lett(10)
 
-fart = 6
+fart = 10
 drone.fart_rBakke(fart)
-drone.fly_til(40,25)
+drone.fly_til(30,25)
 drone.set_roi()
 drone.fart_rLuft(fart)
-drone.fly_til(-20,60)
+drone.fly_til(-20,30)
 drone.set_roi()
 drone.fart_rLuft(15)
 drone.returner_hjem()
