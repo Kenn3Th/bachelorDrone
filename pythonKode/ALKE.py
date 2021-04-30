@@ -28,7 +28,7 @@ class Drone:
         """
         Armerer motorene og letter til 98% av satt høyde
         """
-        print("Pre-arm sjekk\nVenter på initialisering)
+        print("Pre-arm sjekk\nVenter paa initialisering)
         while not drone.is_armable:
             print("...")
             time.sleep(1)
@@ -37,7 +37,7 @@ class Drone:
         #Bør armere i "GUIDED" modus
         self.bytt_modus("GUIDED")
         while not drone.armed:
-            print("Venter på armering...")
+            print("Venter paa armering...")
             time.sleep(1)
         
         print("Letter!!")
@@ -48,9 +48,9 @@ class Drone:
         while True:
             altitude = drone.location.global_relative_frame.alt
             if counter%3 == 0:
-                print(f"Høyde: {altitude}")
+                print(f"Hoyde: {altitude}")
             if altitude >= hoyde*0.98:
-                print("Oppnådd høyde")
+                print("Oppnaadd hoyde")
                 break
             counter += 1
             time.sleep(1)
@@ -160,3 +160,6 @@ class Drone:
         while alt > 2:
             time.sleep(1)
         self.landing()
+
+    def AV(self):
+        self.drone.close()
