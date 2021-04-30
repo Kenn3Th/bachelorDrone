@@ -35,7 +35,7 @@ class Drone:
 
         print("Armerer motorene")
         #Bør armere i "GUIDED" modus
-        bytt_modus("GUIDED")
+        self.bytt_modus("GUIDED")
         while not drone.armed:
             print("Venter på armering...")
             time.sleep(1)
@@ -58,7 +58,7 @@ class Drone:
     def landing(self):
         #Lander dronen og printer høyde i terminalen
         print("Landing")
-        bytt_modus("LAND")
+        self.bytt_modus("LAND")
         counter = 0
         while True:
             hoyde = self.drone.location.global_relative_frame.alt
@@ -85,7 +85,7 @@ class Drone:
         plan.wait_ready()
 
     def hent_navaerende_plan():
-        lastinn_plan()
+        self.lastinn_plan()
         planliste = []
         n_veipunkt = 0
         for veipunkt in drone.commands:
@@ -138,8 +138,8 @@ class Drone:
         """
         drone = self.drone
         currentLocation = drone.location.global_relative_frame
-        targetLocation = hent_lokasjon_meter(currentLocation, dNorth, dEast)
-        targetDistance = hent_lokasjon_meter(currentLocation, targetLocation)
+        targetLocation = self.hent_lokasjon_meter(currentLocation, dNorth, dEast)
+        targetDistance = self.hent_lokasjon_meter(currentLocation, targetLocation)
         gotoFunction(targetLocation)
         
         #print "DEBUG: targetLocation: %s" % targetLocation
@@ -147,9 +147,16 @@ class Drone:
 
         while drone.mode.name=="GUIDED": #Stop action if we are no longer in guided mode.
             #print "DEBUG: mode: %s" % vehicle.mode.name
-            remainingDistance=get_distance_metres(drone.location.global_relative_frame, targetLocation)
+            remainingDistance = self.get_distance_metres(drone.location.global_relative_frame, targetLocation)
             print("Distance to target: ", remainingDistance)
             if remainingDistance<=targetDistance*0.01: #Just below target, in case of undershoot.
                 print("Reached target")
                 break;
             time.sleep(2)
+
+    def returner_hjem(self):
+        simple_goto(self.homeLat, self.homeLon, 2)
+        alt = self.drone.location.global_relative_frame.alt
+        while alt > 2:
+            time.sleep(1)
+        self.landing()
