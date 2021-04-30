@@ -184,7 +184,7 @@ class Drone:
         http://copter.ardupilot.com/common-mavlink-mission-command-messages-mav_cmd/#mav_cmd_do_set_roi
         """
         # create the MAV_CMD_DO_SET_ROI command
-        location = drone.location.global_relative_frame
+        location = self.drone.location.global_relative_frame
         msg = self.drone.message_factory.command_long_encode(
             0, 0,    # target system, target component
             mavutil.mavlink.MAV_CMD_DO_SET_ROI, #command
