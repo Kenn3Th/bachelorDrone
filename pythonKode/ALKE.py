@@ -157,7 +157,7 @@ class Drone:
             time.sleep(2)
 
     def returner_hjem(self):
-        simple_goto(self.homeLat, self.homeLon, 2)
+        self.drone.simple_goto(self.homeLat, self.homeLon, 2)
         self.fart_rBakke(5)
         alt = self.drone.location.global_relative_frame.alt
         while alt > 2:
