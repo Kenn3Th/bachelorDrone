@@ -5,7 +5,7 @@ Dette er en klasse for bachelorprosjektet ALKE
 """
 from __future__ import print_function
 
-from dronekit import connect, VehicleMode, Command, LocationGlobal, LocationGlobalRelative 
+from dronekit import VehicleMode, Command, LocationGlobal, LocationGlobalRelative 
 from pymavlink import mavutil
 import math
 import time
