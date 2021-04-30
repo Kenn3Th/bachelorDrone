@@ -17,7 +17,7 @@ class Drone:
         self.homeLon = drone.location.global_relative_frame.lon
 
     def bytt_modus(self, modus):
-        print(f"Change vehicle modus from\n{self.drone.modus}")
+        print(f"Change vehicle modus from\n{self.drone.mode}")
         while self.drone.mode.name != modus:
             self.drone.mode = VehicleMode(modus)
             time.sleep(0.5)
