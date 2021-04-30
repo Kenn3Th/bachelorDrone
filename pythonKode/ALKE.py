@@ -126,7 +126,7 @@ class Drone:
         dlong = aLocation2.lon - aLocation1.lon
         return math.sqrt((dlat*dlat) + (dlong*dlong)) * 1.113195e5
 
-    def fly_til(dNorth, dEast, gotoFunction=vehicle.simple_goto):
+    def fly_til(dNorth, dEast, gotoFunction=self.drone.simple_goto):
         """
         Moves the vehicle to a position dNorth metres North and dEast metres East of the current position.
 
