@@ -3,7 +3,7 @@
 """ 
 Dette programmet tester om motorene kan armeres lette 2m, hovre i 5sek deretter lande.
 """
-from __future_ import print_function
+from __future__ import print_function
 
 from dronekit import connect, VehicleMode, Command, LocationGlobal, LocationGlobalRelative 
 from pymavlink import mavutil
