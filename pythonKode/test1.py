@@ -19,7 +19,7 @@ args = parser.parse_args()
 tilkoblingslink = args.connect
 print("Dronen er forbindelse er koblet til på %s"%tilkoblingslink)
 drone = connect(tilkoblingslink,wait_ready=True)
-drone = Drone(drone)
+drone = ALKE.Drone(drone)
 
 print("Første test!")
 drone.armer_og_lett(5)
