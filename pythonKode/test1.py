@@ -25,8 +25,11 @@ print("Første test!")
 drone.armer_og_lett(5)
 
 fart = 6
-drone.fly_til(2,1, fart)
-drone.flytil(1,3,10)
+drone.fart_rBakke(fart)
+drone.fly_til(10,5)
+drone.fart_rBakke(10)
+drone.flytil(5,-10)
+drone.fart_rLuft(15)
 drone.returner_hjem()
 
 print("Slår av dronen")

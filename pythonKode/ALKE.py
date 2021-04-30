@@ -128,7 +128,7 @@ class Drone:
         dlong = aLocation2.lon - aLocation1.lon
         return math.sqrt((dlat*dlat) + (dlong*dlong)) * 1.113195e5
 
-    def fly_til(self, dNorth, dEast, speed):
+    def fly_til(self, dNorth, dEast):
         """
         Moves the vehicle to a position dNorth metres North and dEast metres East of the current position.
 
@@ -151,8 +151,7 @@ class Drone:
             #print "DEBUG: mode: %s" % vehicle.mode.name
             remainingDistance = self.get_distance_metres(drone.location.global_relative_frame, targetLocation)
             print("Distance to target: ", remainingDistance)
-            self.drone.groundspeed = speed
-            if remainingDistance<=targetDistance*0.01: #Just below target, in case of undershoot.
+            if remainingDistance<=targetDistance*0.1: #Just below target, in case of undershoot.
                 print("Reached target")
                 break;
             time.sleep(2)
