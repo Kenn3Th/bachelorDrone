@@ -167,7 +167,7 @@ class Drone:
         self.drone.close()
 
     def fart_rBakke(self, fart):
-        self.drone.groundspeed(fart)
+        self.drone.groundspeed = fart
     
     def fart_rLuft(self, fart):
-        self.drone.airspeed(fart)
+        self.drone.airspeed = fart
