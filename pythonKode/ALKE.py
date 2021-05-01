@@ -148,7 +148,9 @@ class Drone:
         
         #print "DEBUG: targetLocation: %s" % targetLocation
         #print "DEBUG: targetLocation: %s" % targetDistance
-        if targetDistance<10:
+        if targetDistance<2:
+            adjustment = 0.3
+        elif targetDistance <10:
             adjustment = 0.1
         else:
             targetDistance = 0.05
