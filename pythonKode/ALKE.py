@@ -148,12 +148,15 @@ class Drone:
         
         #print "DEBUG: targetLocation: %s" % targetLocation
         #print "DEBUG: targetLocation: %s" % targetDistance
-
+        if targetDistance<10:
+            adjustment = 0.1
+        else:
+            targetDistance = 0.05
         while drone.mode.name=="GUIDED": #Stop action if we are no longer in guided mode.
             #print "DEBUG: mode: %s" % vehicle.mode.name
             remainingDistance = self.get_distance_metres(drone.location.global_relative_frame, targetLocation)
             print("Avstand til mål: ", remainingDistance)
-            if remainingDistance<=targetDistance*0.05: #Just below target, in case of undershoot.
+            if remainingDistance<=targetDistance*adjustment: #Just below target, in case of undershoot.
                 print("Mål nådd")
                 break;
             time.sleep(2)
@@ -165,7 +168,7 @@ class Drone:
         self.fart_rBakke(5)
         alt = self.drone.location.global_relative_frame.alt
         avstand = self.get_distance_metres(self.drone.location.global_relative_frame, self.homePkt)
-        
+
         while alt >= 2 and avstand>self.homePkt*0.05:
             avstand = self.get_distance_metres(self.drone.location.global_relative_frame, self.homePkt)
             alt = self.drone.location.global_relative_frame.alt
