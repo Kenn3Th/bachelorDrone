@@ -179,7 +179,7 @@ class Drone:
             alt = na_posisjon.alt
             avstand = self.get_distance_metres(na_posisjon, self.homePkt)
             print(f"Avstand hjem {avstand}")
-            if avstand<0.3:
+            if avstand<0.4:
                 print("Nærme nok")
                 if alt<=2:
                     print(f"Høyden er {alt} og gjør klar til landing")
