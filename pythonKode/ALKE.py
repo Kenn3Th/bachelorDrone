@@ -172,10 +172,15 @@ class Drone:
         posisjon = self.drone.location.global_relative_frame
         avstand = self.get_distance_metres(posisjon, self.homePkt)
         alt = posisjon.alt
-        while alt >= 2 and avstand>0.3:
+        while True:
             na_posisjon = self.drone.location.global_relative_frame
             alt = na_posisjon.alt
             avstand = self.get_distance_metres(na_posisjon, self.homePkt)
+            if avstand<0.3:
+                print("Nærme nok")
+                if alt<=2:
+                    print(f"Høyden er {alt} og gjør klar til landing")
+                    break
             time.sleep(1)
         self.landing()
 
