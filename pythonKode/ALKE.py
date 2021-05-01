@@ -168,7 +168,7 @@ class Drone:
         self.fart_rBakke(5)
         alt = self.drone.location.global_relative_frame.alt
         avstand = self.get_distance_metres(self.drone.location.global_relative_frame, self.homePkt)
-
+        print(avstand)
         while alt >= 2 and avstand>self.homePkt*0.05:
             avstand = self.get_distance_metres(self.drone.location.global_relative_frame, self.homePkt)
             alt = self.drone.location.global_relative_frame.alt
