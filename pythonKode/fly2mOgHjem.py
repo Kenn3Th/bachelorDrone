@@ -22,8 +22,8 @@ print("Starter test")
 drone.armer_og_lett(2)
 
 #north og east må endre slik at man flyr 2m i riktig retning
-north = 1
-east = 1
+north = 1.9
+east = 0.1
 drone.fly_til(north, east)
 drone.fart_rBakke(3)
 drone.returner_hjem()
