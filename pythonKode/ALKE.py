@@ -172,10 +172,13 @@ class Drone:
         posisjon = self.drone.location.global_relative_frame
         avstand = self.get_distance_metres(posisjon, self.homePkt)
         alt = posisjon.alt
+
+        print(f"Avstand hjem {avstand}")
         while True:
             na_posisjon = self.drone.location.global_relative_frame
             alt = na_posisjon.alt
             avstand = self.get_distance_metres(na_posisjon, self.homePkt)
+            print(f"Avstand hjem {avstand}")
             if avstand<0.3:
                 print("Nærme nok")
                 if alt<=2:
