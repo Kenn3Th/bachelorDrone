@@ -16,7 +16,7 @@ class Drone:
         self.drone = drone
         self.homeLat = drone.location.global_relative_frame.lat
         self.homeLon = drone.location.global_relative_frame.lon
-        self.homePkt = LocationGlobalRelative(self.homeLat, self.homeLon, 2)
+        self.homePkt = LocationGlobalRelative(self.homeLat, self.homeLon, 5)
 
     def bytt_modus(self, modus):
         print(f"Change vehicle modus from\n{self.drone.mode}")
@@ -168,12 +168,14 @@ class Drone:
         self.drone.simple_goto(self.homePkt)
         self.set_roi()
         self.fart_rBakke(5)
-        alt = self.drone.location.global_relative_frame.alt
-        avstand = self.get_distance_metres(self.drone.location.global_relative_frame, self.homePkt)
-        print(avstand)
-        while alt >= 2 and avstand>self.homePkt*0.05:
-            avstand = self.get_distance_metres(self.drone.location.global_relative_frame, self.homePkt)
-            alt = self.drone.location.global_relative_frame.alt
+        
+        posisjon = self.drone.location.global_relative_frame
+        avstand = self.get_distance_metres(posisjon, self.homePkt)
+        alt = posisjon.alt
+        while alt >= 2 and avstand>0.3:
+            na_posisjon = self.drone.location.global_relative_frame
+            alt = na_posisjon.alt
+            avstand = self.get_distance_metres(na_posisjon, self.homePkt)
             time.sleep(1)
         self.landing()
 
