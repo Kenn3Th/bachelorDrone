@@ -164,7 +164,10 @@ class Drone:
         self.set_roi()
         self.fart_rBakke(5)
         alt = self.drone.location.global_relative_frame.alt
-        while alt >= 2:
+        avstand = self.get_distance_metres(self.drone.location.global_relative_frame, self.homePkt)
+        
+        while alt >= 2 and avstand>self.homePkt*0.05:
+            avstand = self.get_distance_metres(self.drone.location.global_relative_frame, self.homePkt)
             alt = self.drone.location.global_relative_frame.alt
             time.sleep(1)
         self.landing()
