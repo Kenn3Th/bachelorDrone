@@ -19,7 +19,6 @@ drone = ALKE.Drone(drone)
 
 print("Starter test!")
 drone.armer_og_lett(10)
-
 fart = 10
 drone.fart_rBakke(fart)
 drone.fly_til(15,15)
