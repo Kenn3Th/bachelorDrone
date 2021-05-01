@@ -5,6 +5,7 @@ Dette programmet tester om klassen ALKE.py fungerer.
 """
 import ALKE
 from dronekit import connect
+import time
 
 #----- Koble til drone -----
 import argparse
