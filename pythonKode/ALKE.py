@@ -26,6 +26,8 @@ class Drone:
         print(f"To\n{self.drone.mode}")
 
     def armer_og_lett(self, hoyde):
+        SMOOTH_TAKEOFF_THRUST = 0.6
+        DEFAULT_TAKEOFF_THRUST = 0.7
         drone = self.drone
         """
         Armerer motorene og letter til 98% av satt høyde
@@ -39,9 +41,12 @@ class Drone:
         #Bør armere i "GUIDED" modus
         self.bytt_modus("GUIDED")
         drone.armed= True
+        counter = 1
         while not drone.armed:
             print("Venter på armering...")
             time.sleep(1)
+            if counter % 5 == 0:
+                drone.armed = True
         
         print("Letter!!")
         drone.simple_takeoff(hoyde)
@@ -49,12 +54,18 @@ class Drone:
         #Venter på at dronen oppnår 98% av oppgitt høyde
         counter = 0
         while True:
+            set_attitude(thrust = SMOOTH_TAKEOFF_THRUST)
             altitude = drone.location.global_relative_frame.alt
             if counter%3 == 0:
                 print(f"Høyde: {altitude}")
-            if altitude >= hoyde*0.98:
+            if altitude<2:
+                set_attitude(thrust = SMOOTH_TAKEOFF_THRUST)
+            elif:
+                altitude >= hoyde*0.98:
                 print("Oppnådd høyde")
                 break
+            else:
+                set_attitude(thrust=DEFAULT_TAKEOFF_THRUST)
             counter += 1
             time.sleep(1)
 
