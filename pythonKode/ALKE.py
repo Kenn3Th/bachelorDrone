@@ -60,8 +60,7 @@ class Drone:
                 print(f"Høyde: {altitude}")
             if altitude<2:
                 set_attitude(thrust = SMOOTH_TAKEOFF_THRUST)
-            elif:
-                altitude >= hoyde*0.98:
+            elif altitude >= hoyde*0.98:
                 print("Oppnådd høyde")
                 break
             else:
