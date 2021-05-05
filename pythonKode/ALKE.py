@@ -40,13 +40,10 @@ class Drone:
         print("Armerer motorene")
         #Bør armere i "GUIDED" modus
         self.bytt_modus("GUIDED")
-        drone.armed= True
-        counter = 1
         while not drone.armed:
             print("Venter på armering...")
-            time.sleep(1)
-            if counter % 5 == 0:
-                drone.armed = True
+            drone.armed = True
+            time.sleep(5)
         
         print("Letter!!")
         drone.simple_takeoff(hoyde)
