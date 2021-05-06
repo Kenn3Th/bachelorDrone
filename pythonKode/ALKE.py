@@ -149,9 +149,9 @@ class Drone:
         #print "DEBUG: targetLocation: %s" % targetLocation
         #print "DEBUG: targetLocation: %s" % targetDistance
         if targetDistance<2:
-            adjustment = 0.3
+            adjustment = 0.5
         elif targetDistance <10:
-            adjustment = 0.1
+            adjustment = 0.4
         else:
             targetDistance = 0.05
         while drone.mode.name=="GUIDED": #Stop action if we are no longer in guided mode.

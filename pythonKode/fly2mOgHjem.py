@@ -22,12 +22,11 @@ print("Starter test")
 drone.armer_og_lett(2)
 
 #north og east må endre slik at man flyr 2m i riktig retning
-north = -5
+north = -10
 east = 0
 drone.fart_rBakke(3)
 drone.fly_til(north, east)
-drone.fly_til(0,5)
-drone.fly_til(5,-2)
+drone.fly_til(0,10)
 drone.returner_hjem()
 print("Slår av dronen")
 drone.AV()
