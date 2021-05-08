@@ -80,10 +80,10 @@ class Drone:
         plan.download()
         plan.wait_ready() #venter til nedlastningen er ferdig
 
-    def fjer_plan(self):
+    def fjern_plan(self):
         #Fjerner nåverende plan
         plan = self.drone.commands
-        plan.celar()
+        plan.clear()
         plan.flush()
         plan.download()
         plan.wait_ready()
@@ -256,19 +256,6 @@ class Drone:
                 hoyde = pkt[2]
                 cmds.add(self.goto_spline(nord,ost,hoyde))
         cmds.upload() #Laster oppdraget til dronen
-
-    def oppdrag(self, runder):
-        """
-        Lager søke oppdraget til dronen der runder gir hvor mange runder dronen skal ha i søket sitt
-        """
-        print("Definerer oppdrag")
-        punkter = [[35,10,10],[0,-10,10],[-35,5,5],[0,-10,5]]
-        #Lager oppdraget
-        print("Setter punkter")
-        for runde in range(runder):
-            for pkt in punkter:
-                punkt = LocationGlobalRelative(pkt[0],pkt[1],pkt[2])
-                self.drone.simple_goto(punkt)
     
     def oppdrag_film(self, runder):
         print("Fått oppdrag om filming!")
@@ -289,7 +276,7 @@ class Drone:
             if cmds.next%4 == 0:
                 runde += 1
                 print(f"{runde} runde fullført")
-            if cmds.next <= totOppdragPkt:
+            if cmds.next == totOppdragPk+1t:
                 print("Fullført alle rundene og avslutter oppdrag")
                 break
         
