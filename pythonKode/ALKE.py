@@ -175,6 +175,7 @@ class Drone:
             time.sleep(2)
 
     def returner_hjem(self):
+        self.fjern_plan()
         print("Returnerer til start")
         self.drone.simple_goto(self.homePkt)
         self.set_roi()
@@ -276,7 +277,7 @@ class Drone:
         time.sleep(20)
         #bare for å ikke sende returner hjem før oppdraget er ferdig
         while True:
-            if self.drone.groundspeed<1:
+            if self.drone.groundspeed<0.6:
                 break
             time.sleep(1)
         
