@@ -261,7 +261,7 @@ class Drone:
         print("Fjerner gammelt oppdrag")
         self.fjern_plan()
         for runde in range(runder):
-            oppdrag_spline()
+            self.oppdrag_spline()
         
 
         self.returner_hjem()
