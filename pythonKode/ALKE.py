@@ -198,13 +198,14 @@ class Drone:
             if alt<=2.1:
                 print(f"Høyden er {alt} og gjør klar til landing")
                 break
+            time.sleep(2)
             if self.drone.groundspeed<1 and avstand>2:
-                print("Finner ikke hjem setter derfor RTL")
-                self.bytt_modus("RTL")
+                print("Har ikke oppfattet kommandoen prøver på nytt")
             elif (time.time()-timeStart)>60:
                 print(f"Dronen har vært {time.time()-timeStart}s i luften og nødlander")
+                print("Finner ikke hjem setter derfor RTL")
+                self.bytt_modus("RTL")
                 break
-            time.sleep(1)
         self.landing()
 
     def AV(self):
@@ -250,7 +251,7 @@ class Drone:
         Lager søke oppdraget til dronen der runder gir hvor mange runder dronen skal ha i søket sitt
         """
         print("Definerer oppdrag")
-        punkter = [[35,10,10],[35,-10,10],[0,-5,5],[0,-20,5]]
+        punkter = [[45,10,10],[45,-10,10],[10,-5,5],[10,-20,5]]
         #Lager oppdraget
         cmds = self.drone.commands
         cmds.wait_ready()

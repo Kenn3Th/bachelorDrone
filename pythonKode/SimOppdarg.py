@@ -29,6 +29,8 @@ else:
     fart = 2
 
 print("Starter programmet")
+print("fjerner gammelt oppdrag")
+drone.fjern_plan()
 drone.armer_og_lett(5)
 print(f"Setter fart til {fart}, og gjør klar til å fly {runder} runder")
 drone.fart_rBakke(fart)
