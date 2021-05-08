@@ -1,7 +1,7 @@
 """
 Dette programmet simulerer oppdraget vi har definert i missionPLanner. Oppdraget er oppdrag.py og blir simulert ved hjelp av dronekit-sitl og ubuntu20.x
 """
-import pythonKode.ALKE as ALKE
+from pythonKode.ALKE import ALKE
 import sys
 from dronekit import connect
 
