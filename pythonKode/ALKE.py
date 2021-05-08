@@ -256,7 +256,7 @@ class Drone:
         for runde in range(runder):
             for pkt in punkter:
                 nord = pkt[0]
-                ost = pkt[1]+10*runde
+                ost = pkt[1]-10*runde
                 hoyde = pkt[2]
                 cmds.add(self.goto_spline(nord,ost,hoyde))
             
