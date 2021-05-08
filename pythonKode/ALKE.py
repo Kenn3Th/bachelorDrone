@@ -268,11 +268,13 @@ class Drone:
         self.bytt_modus("AUTO")
         totOppdragPkt = runder*4
         print("Begynner oppdrag!")
-        while cmds.next <= (totOppdragPkt+1):
+        while True:
             cmds.next
             if cmds.next%4 == 0:
                 runde += 1
                 print(f"{runde} runde fullført")
-            print(cmds.next)
+            if cmds.next <= totOppdragPkt:
+                print("Fullførst alle rundene og avslutter oppdrag")
+                break
         
         self.returner_hjem()
