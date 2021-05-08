@@ -201,6 +201,9 @@ class Drone:
             time.sleep(2)
             if self.drone.groundspeed<1 and avstand>2:
                 print("Har ikke oppfattet kommandoen prøver på nytt")
+                self.drone.simple_goto(self.homePkt)
+                self.set_roi()
+                self.fart_rBakke(5)
             elif (time.time()-timeStart)>60:
                 print(f"Dronen har vært {time.time()-timeStart}s i luften og nødlander")
                 print("Finner ikke hjem setter derfor RTL")
