@@ -234,7 +234,7 @@ class Drone:
 
     def goto_spline(self, dNorth, dEast, dAlt):
         posisjon = self.drone.location.global_relative_frame
-        punkt = hent_lokasjon_meter(posisjon, dNorth, dEast)
+        punkt = self.hent_lokasjon_meter(posisjon, dNorth, dEast)
         cmd = Command(0,0,0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_SPLINE_WAYPOINT , 0, 0, 0, 0, 0, 0, punkt.lat, punkt.lon, dAlt)
         return cmd
 
