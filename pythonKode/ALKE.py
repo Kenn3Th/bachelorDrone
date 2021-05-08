@@ -272,11 +272,8 @@ class Drone:
         plan = self.drone.commands
         plan.next = 0
         self.bytt_modus("AUTO")
-        while True:
+        while plan.next<4:
             nestePunkt = plan.next
-            if nestePunkt==5:
-                print("Ferdig med oppdrag")
-                break
 
 """
     def oppdrag_film(self, runder):
