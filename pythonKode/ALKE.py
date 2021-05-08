@@ -248,6 +248,7 @@ class Drone:
         cmds = self.drone.commands
         cmds.wait_ready()
         cmds.clear()
+        print("Setter punkter")
         for runde in range(runder):
             for pkt in punkter:
                 nord = pkt[0]
@@ -262,6 +263,8 @@ class Drone:
         cmds = self.drone.commands
         print("Laster opp oppdrag")
         cmds.wait_ready() #Venter til punktene er ferdig opplastet
+        cmds.download()
+        cmds.wait_ready()
 
         cmds.next = 0
         runde = 0
@@ -274,7 +277,7 @@ class Drone:
                 runde += 1
                 print(f"{runde} runde fullført")
             if cmds.next <= totOppdragPkt:
-                print("Fullførst alle rundene og avslutter oppdrag")
+                print("Fullført alle rundene og avslutter oppdrag")
                 break
         
         self.returner_hjem()
