@@ -271,18 +271,15 @@ class Drone:
         cmds.wait_ready()
 
         cmds.next = 0
-        runde = 0
-        self.bytt_modus("AUTO")
-        rundeTid = 40.0/fart
         print("Begynner oppdrag!")
-        for runde in range(runder):
-            startTid = time.time()
-            tid = 0
-            while tid<rundeTid:
-                cmds.next
-                tid = time.time()-startTid
+        self.bytt_modus("AUTO")
+        while True:
+            if self.drone.groundspeed<1:
+                break
         
-        self.returner_hjem()
+        
+        
+        #self.returner_hjem()
 """
     def oppdrag_spline(self):
         print("Definerer oppdrag")
