@@ -177,6 +177,8 @@ class Drone:
     def returner_hjem(self):
         self.fjern_plan()
         print("Returnerer til start")
+        if self.drone.mode.name != "GUIDED":
+            self.bytt_modus("GUIDED")
         self.drone.simple_goto(self.homePkt)
         self.set_roi()
         self.fart_rBakke(5)
@@ -195,20 +197,15 @@ class Drone:
             if avstand<0.4:
                 print("Nærme nok")
                 self.drone.simple_goto(landings_punkt)
-            if alt<=2.1:
-                print(f"Høyden er {alt} og gjør klar til landing")
-                break
-            time.sleep(2)
-            if self.drone.groundspeed<1 and avstand>2:
-                print("Har ikke oppfattet kommandoen prøver på nytt")
-                self.drone.simple_goto(self.homePkt)
-                self.set_roi()
-                self.fart_rBakke(5)
+                if alt<=2.1:
+                    print(f"Høyden er {alt} og gjør klar til landing")
+                    break
             if (time.time()-timeStart)>60:
                 print(f"Dronen har vært {time.time()-timeStart}s i luften og nødlander")
                 print("Finner ikke hjem setter derfor RTL")
                 self.bytt_modus("RTL")
                 break
+            time.sleep(2)
         self.landing()
 
     def AV(self):
