@@ -204,7 +204,7 @@ class Drone:
                 self.drone.simple_goto(self.homePkt)
                 self.set_roi()
                 self.fart_rBakke(5)
-            elif (time.time()-timeStart)>60:
+            if (time.time()-timeStart)>60:
                 print(f"Dronen har vært {time.time()-timeStart}s i luften og nødlander")
                 print("Finner ikke hjem setter derfor RTL")
                 self.bytt_modus("RTL")
