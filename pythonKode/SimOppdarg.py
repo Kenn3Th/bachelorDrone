@@ -16,9 +16,9 @@ drone = ALKE.Drone(drone)
 import sys
 arg = len(sys.argv)
 if arg>1:
-    runder = sys.argv[1]
+    runder = int(sys.argv[1])
     if arg>2:
-        fart = sys.argv[2]
+        fart = int(sys.argv[2])
     else:
         fart = 2
 elif arg>3:
