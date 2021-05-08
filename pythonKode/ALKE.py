@@ -264,14 +264,15 @@ class Drone:
         cmds.wait_ready() #Venter til punktene er ferdig opplastet
 
         cmds.next = 0
-        runde = 0
+        runde = counter = 0
         self.bytt_modus("AUTO")
         totOppdragPkt = runder*4
         print("Begynner oppdrag!")
         while cmds.next <= (totOppdragPkt+1):
             cmds.next
-            if cmds.next%4 == 0:
+            if counter%4 == 0:
                 runde += 1
                 print(f"{runde} runde fullført")
+            counter += 1
         
         self.returner_hjem()
