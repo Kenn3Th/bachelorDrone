@@ -274,8 +274,11 @@ class Drone:
         print("Begynner oppdrag!")
         self.bytt_modus("AUTO")
         time.sleep(5)
-        while self.drone.groundspeed>1:
-            #bare for å ikke sende returner hjem før oppdraget er ferdig
+        #bare for å ikke sende returner hjem før oppdraget er ferdig
+        while True:
+            if self.drone.groundspeed<1:
+                break
+            time.sleep(1)
         
 """
     def oppdrag_spline(self):
