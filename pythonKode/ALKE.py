@@ -238,7 +238,7 @@ class Drone:
         cmd = Command(0,0,0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_SPLINE_WAYPOINT , 0, 0, 0, 0, 0, 0, punkt.lat, punkt.lon, dAlt)
         return cmd
 
-    def oppdrag(self, runder):
+    def oppdrag_spline(self, runder):
         """
         Lager søke oppdraget til dronen der runder gir hvor mange runder dronen skal ha i søket sitt
         """
@@ -255,6 +255,23 @@ class Drone:
                 ost = pkt[1]
                 hoyde = pkt[2]
                 cmds.add(self.goto_spline(nord,ost,hoyde))
+        cmds.upload() #Laster oppdraget til dronen
+
+    def oppdrag(self, runder):
+        """
+        Lager søke oppdraget til dronen der runder gir hvor mange runder dronen skal ha i søket sitt
+        """
+        print("Definerer oppdrag")
+        punkter = [[35,10,10],[0,-10,10],[-35,5,5],[0,-10,5]]
+        #Lager oppdraget
+        cmds = self.drone.commands
+        cmds.wait_ready()
+        cmds.clear()
+        print("Setter punkter")
+        for runde in range(runder):
+            for pkt in punkter:
+                punkt = LocationGlobalRelative(pkt[0],pkt[1],pkt[2])
+                cmds.add(self.drone.simple_goto(punkt))
         cmds.upload() #Laster oppdraget til dronen
     
     def oppdrag_film(self, runder):
