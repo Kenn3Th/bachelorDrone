@@ -198,7 +198,9 @@ class Drone:
             if alt<=2.1:
                 print(f"Høyden er {alt} og gjør klar til landing")
                 break
-            if (time.time()-timeStart)>60:
+            if self.drone.groundspeed<1 and avstand>2:
+                self.fart_rBakke(5)
+            elif (time.time()-timeStart)>60:
                 print(f"Dronen har vært {time.time()-timeStart}s i luften og nødlander")
                 break
             time.sleep(1)
