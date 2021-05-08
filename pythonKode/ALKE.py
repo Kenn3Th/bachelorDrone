@@ -264,19 +264,15 @@ class Drone:
         print("Definerer oppdrag")
         punkter = [[35,10,10],[0,-10,10],[-35,5,5],[0,-10,5]]
         #Lager oppdraget
-        cmds = self.drone.commands
-        cmds.wait_ready()
-        cmds.clear()
         print("Setter punkter")
         for runde in range(runder):
             for pkt in punkter:
                 punkt = LocationGlobalRelative(pkt[0],pkt[1],pkt[2])
-                cmds.add(self.drone.simple_goto(punkt))
-        cmds.upload() #Laster oppdraget til dronen
+                self.drone.simple_goto(punkt)
     
     def oppdrag_film(self, runder):
         print("Fått oppdrag om filming!")
-        self.oppdrag(runder)
+        self.oppdrag_spline(runder)
         cmds = self.drone.commands
         print("Laster opp oppdrag")
         cmds.wait_ready() #Venter til punktene er ferdig opplastet
