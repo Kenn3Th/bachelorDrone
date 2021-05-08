@@ -254,9 +254,9 @@ class Drone:
         print("Setter punkter")
         for runde in range(runder):
             for pkt in punkter:
-                nord = pkt[0]*(runde+1)
+                nord = pkt[0]
                 ost = pkt[1]*(runde+1)
-                hoyde = pkt[2]*(runde+1)
+                hoyde = pkt[2]
                 cmds.add(self.goto_spline(nord,ost,hoyde))
             
         cmds.upload() #Laster oppdraget til dronen
