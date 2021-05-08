@@ -197,7 +197,7 @@ class Drone:
             if alt<=2.1:
                 print(f"Høyden er {alt} og gjør klar til landing")
                 break
-            if (time.time()-timeStart)>20:
+            if (time.time()-timeStart)>120:
                 print(f"Dronen har vært {time.time()-timeStart}s i luften og nødlander")
                 break
             time.sleep(1)
@@ -241,9 +241,10 @@ class Drone:
         cmd = Command(0,0,0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_SPLINE_WAYPOINT , 0, 0, 0, 0, 0, 0, punkt.lat, punkt.lon, dAlt)
         return cmd
 
+"""
     def oppdrag_spline(self):
         """
-        Lager søke oppdraget til dronen der runder gir hvor mange runder dronen skal ha i søket sitt
+        #Lager søke oppdraget til dronen der runder gir hvor mange runder dronen skal ha i søket sitt
         """
         print("Definerer oppdrag")
         punkter = [[35,10,10],[35,-10,10],[0,-5,5],[0,-20,5]]
@@ -277,7 +278,28 @@ class Drone:
             nestePunkt = plan.next
 
 """
-    def oppdrag_film(self, runder):
+    def oppdrag_spline(self,runder):
+        """
+        #Lager søke oppdraget til dronen der runder gir hvor mange runder dronen skal ha i søket sitt
+        """
+        print("Definerer oppdrag")
+        punkter = [[35,10,10],[35,-10,10],[0,-5,5],[0,-20,5]]
+        #Lager oppdraget
+        cmds = self.drone.commands
+        cmds.wait_ready()
+        cmds.clear()
+        print("Setter punkter")
+        for runde in range(runder):
+            for pkt in punkter:
+                nord = pkt[0]
+                ost = pkt[1]
+                hoyde = pkt[2]
+                cmds.add(self.goto_spline(nord,ost,hoyde))
+            punkter = punkter*2
+            
+        cmds.upload() #Laster oppdraget til dronen
+
+    def oppdrag_film(self, runder, fart):
         print("Fått oppdrag om filming!")
         self.oppdrag_spline(runder)
         cmds = self.drone.commands
@@ -289,16 +311,13 @@ class Drone:
         cmds.next = 0
         runde = 0
         self.bytt_modus("AUTO")
-        totOppdragPkt = runder*4
+        rundeTid = 40.0/fart
         print("Begynner oppdrag!")
-        while True:
-            cmds.next
-            if cmds.next%4 == 0:
-                runde += 1
-                print(f"{runde} runde fullført")
-            if cmds.next == totOppdragPkt+1:
-                print("Fullført alle rundene og avslutter oppdrag")
-                break
+        for runde in range(runder):
+            startTid = time.time()
+            tid = 0
+            while tid<rundeTid:
+                cmds.next
+                tid = time.time()-startTid
         
         self.returner_hjem()
-"""
