@@ -241,40 +241,6 @@ class Drone:
         cmd = Command(0,0,0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_SPLINE_WAYPOINT , 0, 0, 0, 0, 0, 0, punkt.lat, punkt.lon, dAlt)
         return cmd
 
-"""
-    def oppdrag_spline(self):
-        print("Definerer oppdrag")
-        punkter = [[35,10,10],[35,-10,10],[0,-5,5],[0,-20,5]]
-        #Lager oppdraget
-        cmds = self.drone.commands
-        cmds.wait_ready()
-        cmds.clear()
-        print("Setter punkter")
-        for pkt in punkter:
-            nord = pkt[0]
-            ost = pkt[1]
-            hoyde = pkt[2]
-            cmds.add(self.goto_spline(nord,ost,hoyde))
-        cmds.upload() #Laster oppdraget til dronen
-        self.fly_oppdrag()
-    
-
-    def oppdrag_film(self,runder):
-        print("Fjerner gammelt oppdrag")
-        self.fjern_plan()
-        for runde in range(runder):
-            self.oppdrag_spline()
-
-
-    def fly_oppdrag(self):
-        self.lastinn_plan()
-        plan = self.drone.commands
-        plan.next = 0
-        self.bytt_modus("AUTO")
-        while plan.next<4:
-            nestePunkt = plan.next
-
-"""
     def oppdrag_spline(self,runder):
         """
         Lager søke oppdraget til dronen der runder gir hvor mange runder dronen skal ha i søket sitt
@@ -318,3 +284,36 @@ class Drone:
                 tid = time.time()-startTid
         
         self.returner_hjem()
+"""
+    def oppdrag_spline(self):
+        print("Definerer oppdrag")
+        punkter = [[35,10,10],[35,-10,10],[0,-5,5],[0,-20,5]]
+        #Lager oppdraget
+        cmds = self.drone.commands
+        cmds.wait_ready()
+        cmds.clear()
+        print("Setter punkter")
+        for pkt in punkter:
+            nord = pkt[0]
+            ost = pkt[1]
+            hoyde = pkt[2]
+            cmds.add(self.goto_spline(nord,ost,hoyde))
+        cmds.upload() #Laster oppdraget til dronen
+        self.fly_oppdrag()
+    
+
+    def oppdrag_film(self,runder):
+        print("Fjerner gammelt oppdrag")
+        self.fjern_plan()
+        for runde in range(runder):
+            self.oppdrag_spline()
+
+
+    def fly_oppdrag(self):
+        self.lastinn_plan()
+        plan = self.drone.commands
+        plan.next = 0
+        self.bytt_modus("AUTO")
+        while plan.next<4:
+            nestePunkt = plan.next
+"""
