@@ -263,6 +263,9 @@ class Drone:
         self.fjern_plan()
         for runde in range(runder):
             oppdrag_spline()
+        
+
+        self.returner_hjem()
 
 
     def fly_oppdrag(self):
@@ -276,7 +279,7 @@ class Drone:
                 print("Ferdig med oppdrag")
                 break
 
-
+"""
     def oppdrag_film(self, runder):
         print("Fått oppdrag om filming!")
         self.oppdrag_spline(runder)
@@ -301,3 +304,4 @@ class Drone:
                 break
         
         self.returner_hjem()
+"""
