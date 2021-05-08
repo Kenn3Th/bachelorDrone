@@ -16,7 +16,7 @@ class Drone:
         self.drone = drone
         self.homeLat = drone.location.global_relative_frame.lat
         self.homeLon = drone.location.global_relative_frame.lon
-        self.homePkt = LocationGlobalRelative(self.homeLat, self.homeLon, 10)
+        self.homePkt = LocationGlobalRelative(self.homeLat, self.homeLon, 5)
 
     def bytt_modus(self, modus):
         print(f"Change vehicle modus from\n{self.drone.mode}")
@@ -97,7 +97,7 @@ class Drone:
             n_veipunkt += 1
         return n_veipunkt, planliste
 
-    def hent_lokasjon_meter(self, original_location, dNorth, dEast):
+    def hent_lokasjon_meter(self, original_location, dNorth, dEast, dHight=None):
         """
         Kildekode funnet på: https://dronekit-python.readthedocs.io/en/latest/examples/guided-set-speed-yaw-demo.html
         """
@@ -109,12 +109,20 @@ class Drone:
         #New position in decimal degrees
         newlat = original_location.lat + (dLat * 180/math.pi)
         newlon = original_location.lon + (dLon * 180/math.pi)
-        if type(original_location) is LocationGlobal:
-            targetlocation=LocationGlobal(newlat, newlon,original_location.alt)
-        elif type(original_location) is LocationGlobalRelative:
-            targetlocation=LocationGlobalRelative(newlat, newlon,original_location.alt)
+        if dHight is not None:
+            if type(original_location) is LocationGlobal:
+                targetlocation=LocationGlobal(newlat, newlon,dHight)
+            elif type(original_location) is LocationGlobalRelative:
+                targetlocation=LocationGlobalRelative(newlat, newlon,dHight)
+            else:
+                raise Exception("Invalid Location object passed")
         else:
-            raise Exception("Invalid Location object passed")
+            if type(original_location) is LocationGlobal:
+                targetlocation=LocationGlobal(newlat, newlon,original_location.alt)
+            elif type(original_location) is LocationGlobalRelative:
+                targetlocation=LocationGlobalRelative(newlat, newlon,original_location.alt)
+            else:
+                raise Exception("Invalid Location object passed")
             
         return targetlocation;
 
@@ -130,7 +138,7 @@ class Drone:
         dlong = aLocation2.lon - aLocation1.lon
         return math.sqrt((dlat*dlat) + (dlong*dlong)) * 1.113195e5
 
-    def fly_til(self, dNorth, dEast):
+    def fly_til(self, dNorth, dEast, dHight=None):
         """
         Moves the vehicle to a position dNorth metres North and dEast metres East of the current position.
 
@@ -142,8 +150,12 @@ class Drone:
         """
         drone = self.drone
         currentLocation = drone.location.global_relative_frame
-        targetLocation = self.hent_lokasjon_meter(currentLocation, dNorth, dEast)
+        if dHight is not None:
+            targetLocation = self.hent_lokasjon_meter(currentLocation, dNorth, dEast, dHight)
+        else:
+            targetLocation = self.hent_lokasjon_meter(currentLocation, dNorth, dEast)
         targetDistance = self.get_distance_metres(currentLocation, targetLocation)
+
         drone.simple_goto(targetLocation)
         
         #print "DEBUG: targetLocation: %s" % targetLocation
@@ -219,3 +231,44 @@ class Drone:
             )
         # send command to vehicle
         self.drone.send_mavlink(msg)
+
+    def goto_spline(self, dNorth, dEast, dAlt):
+        posisjon = self.drone.location.global_relative_frame
+        punkt = hent_lokasjon_meter(posisjon, dNorth, dEast)
+        cmd = Command(0,0,0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_SPLINE_WAYPOINT , 0, 0, 0, 0, 0, 0, punkt.lat, punkt.lon, dAlt)
+        return cmd
+
+    def oppdrag(self, runder):
+        """
+        Lager søke oppdraget til dronen der runder gir hvor mange runder dronen skal ha i søket sitt
+        """
+        print("Definerer oppdrag")
+        punkter = [[35,10,10],[0,-10,10],[-35,5,5],[0,-10,5]]
+        #Lager oppdraget
+        cmds = self.drone.commands
+        cmds.wait_ready()
+        cmds.clear()
+        for runde in range(runder):
+            for pkt in punkter:
+                nord = pkt[0]
+                ost = pkt[1]
+                hoyde = pkt[2]
+                cmds.add(goto_spline(nord,ost,hoyde))
+        cmds.upload() #Laster oppdraget til dronen
+    
+    def oppdrag_film(self, runder):
+        self.oppdrag(runder)
+        cmds = self.drone.commands
+        cmds.wait_ready() #Venter til punktene er ferdig opplastet
+
+        cmds.next = 0
+        runde = 0
+        self.bytt_modus("AUTO")
+        totOppdragPkt = runder*4
+        while cmds.next < totOppdragPkt:
+            cmds.next
+            if cmds.next%4 == 0:
+                runde += 1
+                print(f"{runde} runde fullført")
+        
+        self.returner_hjem()
