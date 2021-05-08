@@ -280,7 +280,7 @@ class Drone:
 """
     def oppdrag_spline(self,runder):
         """
-        #Lager søke oppdraget til dronen der runder gir hvor mange runder dronen skal ha i søket sitt
+        Lager søke oppdraget til dronen der runder gir hvor mange runder dronen skal ha i søket sitt
         """
         print("Definerer oppdrag")
         punkter = [[35,10,10],[35,-10,10],[0,-5,5],[0,-20,5]]
