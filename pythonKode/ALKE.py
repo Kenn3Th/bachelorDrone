@@ -257,15 +257,17 @@ class Drone:
         cmds.upload() #Laster oppdraget til dronen
     
     def oppdrag_film(self, runder):
+        print("Fått oppdrag om filming!")
         self.oppdrag(runder)
         cmds = self.drone.commands
+        cm
         cmds.wait_ready() #Venter til punktene er ferdig opplastet
 
         cmds.next = 0
         runde = 0
         self.bytt_modus("AUTO")
         totOppdragPkt = runder*4
-        while cmds.next < totOppdragPkt:
+        while cmds.next =< (totOppdragPkt+1):
             cmds.next
             if cmds.next%4 == 0:
                 runde += 1
