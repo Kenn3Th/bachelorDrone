@@ -28,9 +28,13 @@ else:
     runder = 1
     fart = 2
 
+print("Starter programmet")
 drone.armer_og_lett(5)
+print(f"Setter fart til {fart}")
 drone.fart_rBakke(fart)
+print("Flyr til første punkt")
 drone.fly_til(10,10,10)
+print("Setter opp og utfører oppdraget")
 drone.oppdrag_film(runder)
 print("Slår av drone")
 drone.AV()
