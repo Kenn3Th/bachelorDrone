@@ -84,7 +84,6 @@ class Drone:
         #Fjerner nåverende plan
         plan = self.drone.commands
         plan.clear()
-        plan.flush()
         plan.download()
         plan.wait_ready()
 
