@@ -238,7 +238,7 @@ class Drone:
         cmd = Command(0,0,0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_SPLINE_WAYPOINT , 0, 0, 0, 0, 0, 0, punkt.lat, punkt.lon, dAlt)
         return cmd
 
-    def oppdrag_spline(self, runder):
+    def oppdrag_spline(self):
         """
         Lager søke oppdraget til dronen der runder gir hvor mange runder dronen skal ha i søket sitt
         """
@@ -249,14 +249,34 @@ class Drone:
         cmds.wait_ready()
         cmds.clear()
         print("Setter punkter")
-        for runde in range(runder):
-            for pkt in punkter:
-                nord = pkt[0]
-                ost = pkt[1]
-                hoyde = pkt[2]
-                cmds.add(self.goto_spline(nord,ost,hoyde))
+        for pkt in punkter:
+            nord = pkt[0]
+            ost = pkt[1]
+            hoyde = pkt[2]
+            cmds.add(self.goto_spline(nord,ost,hoyde))
         cmds.upload() #Laster oppdraget til dronen
+        self.fly_oppdrag()
     
+
+    def oppdrag_film(self,runder):
+        print("Fjerner gammelt oppdrag")
+        self.fjern_plan()
+        for runde in range(runder):
+            oppdrag_spline()
+
+
+    def fly_oppdrag(self):
+        self.lastinn_plan()
+        plan = self.drone.commands
+        plan.next = 0
+        self.bytt_modus("AUTO")
+        while True:
+            nestePunkt = plan.next
+            if nestePunkt==5:
+                print("Ferdig med oppdrag")
+                break
+
+
     def oppdrag_film(self, runder):
         print("Fått oppdrag om filming!")
         self.oppdrag_spline(runder)
