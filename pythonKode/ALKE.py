@@ -165,7 +165,7 @@ class Drone:
         elif targetDistance <10:
             adjustment = 0.4
         else:
-            targetDistance = 0.05
+            adjustment = 0.05
         while drone.mode.name=="GUIDED": #Stop action if we are no longer in guided mode.
             #print "DEBUG: mode: %s" % vehicle.mode.name
             remainingDistance = self.get_distance_metres(drone.location.global_relative_frame, targetLocation)
