@@ -185,6 +185,7 @@ class Drone:
         alt = posisjon.alt
         landings_punkt = LocationGlobalRelative(self.homeLat, self.homeLon, 2)
         print(f"Avstand hjem {avstand}")
+        timeStart = time.time()
         while True:
             na_posisjon = self.drone.location.global_relative_frame
             alt = na_posisjon.alt
@@ -195,6 +196,9 @@ class Drone:
                 self.drone.simple_goto(landings_punkt)
             if alt<=2.1:
                 print(f"Høyden er {alt} og gjør klar til landing")
+                break
+            if (time.time()-timeStart)>20:
+                print(f"Dronen har vært {time.time()-timeStart}s i luften og nødlander")
                 break
             time.sleep(1)
         self.landing()
