@@ -276,7 +276,7 @@ class Drone:
             if cmds.next%4 == 0:
                 runde += 1
                 print(f"{runde} runde fullført")
-            if cmds.next == totOppdragPk+1:
+            if cmds.next == totOppdragPkt+1:
                 print("Fullført alle rundene og avslutter oppdrag")
                 break
         
