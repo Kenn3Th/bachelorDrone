@@ -21,7 +21,7 @@ if arg>1:
         fart = sys.argv[2]
     else:
         fart = 2
-if arg>3:
+elif arg>3:
     print("Godtar kun 2 argumenter, antall runder og fart")
     sys.exit()
 else:
@@ -30,7 +30,7 @@ else:
 
 print("Starter programmet")
 drone.armer_og_lett(5)
-print(f"Setter fart til {fart}")
+print(f"Setter fart til {fart}, og gjør klar til å fly {runder} runder")
 drone.fart_rBakke(fart)
 print("Flyr til første punkt")
 drone.fly_til(10,10,10)
