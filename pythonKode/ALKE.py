@@ -277,9 +277,6 @@ class Drone:
         while self.drone.groundspeed>1:
             #bare for å ikke sende returner hjem før oppdraget er ferdig
         
-        
-        
-        #self.returner_hjem()
 """
     def oppdrag_spline(self):
         print("Definerer oppdrag")
