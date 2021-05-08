@@ -199,8 +199,8 @@ class Drone:
                 print(f"Høyden er {alt} og gjør klar til landing")
                 break
             if self.drone.groundspeed<1 and avstand>2:
-                self.drone.simple_goto(self.homePkt)
-                self.fart_rBakke(5)
+                print("Finner ikke hjem setter derfor RTL")
+                self.bytt_modus("RTL")
             elif (time.time()-timeStart)>60:
                 print(f"Dronen har vært {time.time()-timeStart}s i luften og nødlander")
                 break
@@ -256,6 +256,7 @@ class Drone:
         cmds.wait_ready()
         cmds.clear()
         print("Setter punkter")
+        cmds.add(self.goto_spline(punkter[0][0],punkter[0][1],punkter[0][2])) #første blir ikke med så setter første punkt to ganger
         for runde in range(runder):
             for pkt in punkter:
                 nord = pkt[0]
