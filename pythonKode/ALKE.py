@@ -273,9 +273,9 @@ class Drone:
         cmds.next = 0
         print("Begynner oppdrag!")
         self.bytt_modus("AUTO")
-        while True:
-            if self.drone.groundspeed<1:
-                break
+        time.sleep(5)
+        while self.drone.groundspeed>1:
+            #bare for å ikke sende returner hjem før oppdraget er ferdig
         
         
         
