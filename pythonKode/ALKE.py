@@ -267,7 +267,7 @@ class Drone:
         runde = 0
         self.bytt_modus("AUTO")
         totOppdragPkt = runder*4
-        while cmds.next =< (totOppdragPkt+1):
+        while cmds.next <= (totOppdragPkt+1):
             cmds.next
             if cmds.next%4 == 0:
                 runde += 1
