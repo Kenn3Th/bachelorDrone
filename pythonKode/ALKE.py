@@ -242,7 +242,7 @@ class Drone:
         Lager søke oppdraget til dronen der runder gir hvor mange runder dronen skal ha i søket sitt
         """
         print("Definerer oppdrag")
-        punkter = [[35,10,10],[0,-10,10],[-35,5,5],[0,-10,5]]
+        punkter = [[35,10,10],[35,-10,10],[0,-5,5],[0,-20,5]]
         #Lager oppdraget
         cmds = self.drone.commands
         cmds.wait_ready()
@@ -262,9 +262,6 @@ class Drone:
         self.fjern_plan()
         for runde in range(runder):
             self.oppdrag_spline()
-        
-
-        self.returner_hjem()
 
 
     def fly_oppdrag(self):
