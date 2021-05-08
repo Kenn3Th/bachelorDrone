@@ -253,7 +253,7 @@ class Drone:
                 nord = pkt[0]
                 ost = pkt[1]
                 hoyde = pkt[2]
-                cmds.add(goto_spline(nord,ost,hoyde))
+                cmds.add(self.goto_spline(nord,ost,hoyde))
         cmds.upload() #Laster oppdraget til dronen
     
     def oppdrag_film(self, runder):
