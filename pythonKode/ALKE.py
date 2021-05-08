@@ -197,7 +197,7 @@ class Drone:
             if alt<=2.1:
                 print(f"Høyden er {alt} og gjør klar til landing")
                 break
-            if (time.time()-timeStart)>120:
+            if (time.time()-timeStart)>60:
                 print(f"Dronen har vært {time.time()-timeStart}s i luften og nødlander")
                 break
             time.sleep(1)
@@ -255,7 +255,7 @@ class Drone:
         for runde in range(runder):
             for pkt in punkter:
                 nord = pkt[0]
-                ost = pkt[1]*(runde+1)
+                ost = pkt[1]+10*runde
                 hoyde = pkt[2]
                 cmds.add(self.goto_spline(nord,ost,hoyde))
             
@@ -273,7 +273,7 @@ class Drone:
         cmds.next = 0
         print("Begynner oppdrag!")
         self.bytt_modus("AUTO")
-        time.sleep(5)
+        time.sleep(20)
         #bare for å ikke sende returner hjem før oppdraget er ferdig
         while True:
             if self.drone.groundspeed<1:
