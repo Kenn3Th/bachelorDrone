@@ -37,7 +37,12 @@ drone.fart_rBakke(fart)
 print("Flyr til første punkt")
 drone.fly_til(10,10,10)
 print("Setter opp og utfører oppdraget")
-drone.oppdrag_film(runder,fart)
-drone.returner_hjem()
+try:
+    drone.oppdrag_film(runder,fart)
+except Exception as e:
+    pass
+finally:
+    drone.returner_hjem()
+
 print("Slår av drone")
 drone.AV()

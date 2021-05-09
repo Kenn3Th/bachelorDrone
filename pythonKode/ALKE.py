@@ -71,6 +71,7 @@ class Drone:
                 break
             counter += 1
             time.sleep(1)
+        self.AV()
             
     def lastinn_plan(self):
         """
@@ -156,9 +157,7 @@ class Drone:
         targetDistance = self.get_distance_metres(currentLocation, targetLocation)
 
         drone.simple_goto(targetLocation)
-        
-        #print "DEBUG: targetLocation: %s" % targetLocation
-        #print "DEBUG: targetLocation: %s" % targetDistance
+
         if targetDistance<2:
             adjustment = 0.5
         elif targetDistance <10:
@@ -241,6 +240,9 @@ class Drone:
         self.drone.send_mavlink(msg)
 
     def goto_spline(self, dNorth, dEast, dAlt):
+        """
+        Denne funksjonen gjør at dronen knytter punktene sammen på en slik at dronen flyr mellom punkter på en smooth måte
+        """
         posisjon = self.drone.location.global_relative_frame
         punkt = self.hent_lokasjon_meter(posisjon, dNorth, dEast)
         cmd = Command(0,0,0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_SPLINE_WAYPOINT , 0, 0, 0, 0, 0, 0, punkt.lat, punkt.lon, dAlt)
@@ -263,59 +265,17 @@ class Drone:
                 nord = pkt[0]
                 ost = pkt[1]-10*runde
                 hoyde = pkt[2]
-                cmds.add(self.goto_spline(nord,ost,hoyde))
-            
+                cmds.add(self.goto_spline(nord,ost,hoyde))  
         cmds.upload() #Laster oppdraget til dronen
 
-    def oppdrag_film(self, runder, fart):
+    def oppdrag_film(self, runder):
         print("Fått oppdrag om filming!")
         self.oppdrag_spline(runder)
         cmds = self.drone.commands
         print("Laster opp oppdrag")
+        cmds.wait_ready() #Venter på tilgang godkjenning fra flykontrolleren
+        cmds.download() #Laster inn oppdraget
         cmds.wait_ready() #Venter til punktene er ferdig opplastet
-        cmds.download()
-        cmds.wait_ready()
-
         cmds.next = 0
         print("Begynner oppdrag!")
         self.bytt_modus("AUTO")
-        time.sleep(20)
-        #bare for å ikke sende returner hjem før oppdraget er ferdig
-        while True:
-            if self.drone.groundspeed<0.6:
-                break
-            time.sleep(1)
-        
-"""
-    def oppdrag_spline(self):
-        print("Definerer oppdrag")
-        punkter = [[35,10,10],[35,-10,10],[0,-5,5],[0,-20,5]]
-        #Lager oppdraget
-        cmds = self.drone.commands
-        cmds.wait_ready()
-        cmds.clear()
-        print("Setter punkter")
-        for pkt in punkter:
-            nord = pkt[0]
-            ost = pkt[1]
-            hoyde = pkt[2]
-            cmds.add(self.goto_spline(nord,ost,hoyde))
-        cmds.upload() #Laster oppdraget til dronen
-        self.fly_oppdrag()
-    
-
-    def oppdrag_film(self,runder):
-        print("Fjerner gammelt oppdrag")
-        self.fjern_plan()
-        for runde in range(runder):
-            self.oppdrag_spline()
-
-
-    def fly_oppdrag(self):
-        self.lastinn_plan()
-        plan = self.drone.commands
-        plan.next = 0
-        self.bytt_modus("AUTO")
-        while plan.next<4:
-            nestePunkt = plan.next
-"""
