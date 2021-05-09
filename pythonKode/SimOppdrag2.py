@@ -26,7 +26,7 @@ else:
     fart = 2
 
 startHoyde = 5
-startPunkt = [10,10,10]
+startPunkt = [10,5,10]
 #-- Styrer dronen
 drone.fjern_plan()
 try:

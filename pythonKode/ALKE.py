@@ -253,7 +253,7 @@ class Drone:
         Lager søke oppdraget til dronen der runder gir hvor mange runder dronen skal ha i søket sitt
         """
         print("Definerer oppdrag")
-        punkter = [[45,10,10],[45,-10,10],[10,-5,5],[10,-20,5]]
+        punkter = [[50,10,10],[50,-10,10],[10,-5,5],[10,-20,5]]
         #Lager oppdraget
         cmds = self.drone.commands
         cmds.wait_ready()
