@@ -54,12 +54,14 @@ objektFunnet = False
 antallPunkter, punktListe = drone.hent_navaerende_plan()
 tidStart = time.time()
 try:
+    print("Simulering av objektgjenkjenningen starter")
     while True:
         """
         OpenCV magic
         """
         tidFunnet = 30
         if (tidStart-time.time())>=tidFunnet:
+            print("Fant objektet")
             objektFunnet = True
         gjennomfortPunkter = drone.drone.commands.next
         if objektFunnet:
@@ -74,5 +76,7 @@ try:
             break
 except Exception as e:
     print(f"Noe gikk galt, error: {e}\nreturnerer hjem")
+    drone.bytt_modus("GUIDED")
+    drone.fart_rBakke(3)
     drone.returner_hjem()
     sys.exit()
