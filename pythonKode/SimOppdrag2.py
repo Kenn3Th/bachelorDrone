@@ -60,7 +60,7 @@ try:
         OpenCV magic
         """
         tidFunnet = 30
-        if (tidStart-time.time())>=tidFunnet:
+        if (time.time() - tidStart)>=tidFunnet:
             print("Fant objektet")
             objektFunnet = True
         gjennomfortPunkter = drone.drone.commands.next
