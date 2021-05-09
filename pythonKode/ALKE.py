@@ -92,7 +92,7 @@ class Drone:
         self.lastinn_plan()
         planliste = []
         n_veipunkt = 0
-        for veipunkt in drone.commands:
+        for veipunkt in self.drone.commands:
             planliste.append(veipunkt)
             n_veipunkt += 1
         return n_veipunkt, planliste
