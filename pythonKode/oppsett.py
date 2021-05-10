@@ -1,7 +1,8 @@
 """
-Dette er en doc string som skal forklare hva koden gjor.
+Dette er den første gjennomføringen og tester at funksjonene jeg senere la til i ALKE.py kan brukes med pixhawk4 og MAVlink
 
-Disclaimer: denne koden har hentet inspirasjon direkte fra dronekit og noen funksjoner kan vaere identiske. Bruken av disse fuksjonene skal vaere med paa aa bygge oppunder den funksjonen som er onskelig at dronen skal kunne gjenommfore
+Disclaimer: denne koden har hentet inspirasjon direkte fra dronekit og noen funksjoner kan være identiske. 
+Bruken av disse fuksjonene skal være med på å bygge oppunder den funksjonen som er ønskelig at dronen skal kunne gjenommføre
 """
 from __future__ import print_function
 
