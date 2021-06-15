@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """ 
-Dette er en klasse for bachelorprosjektet ALKE
+Dette er en klasse for bachelorprosjektet ALKE som skal brukes til å fly dronen autonomt via et python skript 
+Disclaimer: Tar forbehold om at noe av koden kan være identisk til eksempler fra dronekit (https://github.com/dronekit/dronekit-python).
+
+Produsert av Kenneth R. Eikrehagen
 """
 from __future__ import print_function
 
@@ -247,6 +250,13 @@ class Drone:
         punkt = self.hent_lokasjon_meter(posisjon, dNorth, dEast)
         cmd = Command(0,0,0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_SPLINE_WAYPOINT , 0, 0, 0, 0, 0, 0, punkt.lat, punkt.lon, dAlt)
         return cmd
+	
+    def goto(self, Lat, Lon, Alt):
+        """
+        Denne funksjonen gjør at dronen knytter punktene sammen på en slik at dronen flyr mellom punkter på en smooth måte
+        """
+        cmd = Command(0,0,0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_SPLINE_WAYPOINT , 0, 0, 0, 0, 0, 0, Lat, Lon, Alt)
+        return cmd
 
     def oppdrag_spline(self,runder):
         """
@@ -265,7 +275,9 @@ class Drone:
                 nord = pkt[0]
                 ost = pkt[1]-10*runde
                 hoyde = pkt[2]
-                cmds.add(self.goto_spline(nord,ost,hoyde))  
+                cmds.add(self.goto_spline(nord,ost,hoyde))
+		cmds.add(self.goto(self.homeLat, self.homeLon, 5))
+		cmds.add(self.goto(0, 0, 0))
         cmds.upload() #Laster oppdraget til dronen
 
     def oppdrag_film(self, runder):
